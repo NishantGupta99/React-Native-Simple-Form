@@ -1,5 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import {View, TextInput, Button} from 'react-native';
+
 
 class App extends React.Component {
   constructor() {
@@ -10,11 +12,19 @@ class App extends React.Component {
       password: '',
     };
   }
-  submit() {
-
-    console.warn(this.state);
+  submit(name, email, password) {
+    axios.post('http://localhost:8000/users', {
+      firstName: "nishant",
+      email: "hello@gmail",
+      password: "demo"
+    })
+    .then(function (response) {
+      console.warn(response);
+    })
+    .catch(function (error) {
+      console.warn(error);
+    });
   }
-
   render() {
     return (
       <View style={{margin: 20}}>
@@ -26,7 +36,7 @@ class App extends React.Component {
           }}
         />
         <TextInput
-          placeholder="enter your email"
+          placeholder="enter your emails"
           style={{borderWidth: 2, borderColor: 'skyblue', margin: 20}}
           onChangeText={text => {
             this.setState({email: text});
@@ -40,7 +50,12 @@ class App extends React.Component {
             this.setState({password: text});
           }}
         />
-        <Button title='submit' onPress={()=> {this.submit()}}/>
+        <Button
+          title="submit"
+          onPress={() => {
+            this.submit();
+          }}
+        />
       </View>
     );
   }
