@@ -12,17 +12,25 @@ class App extends React.Component {
       password: '',
     };
   }
-  submit(name, email, password) {
-    axios.post('http://localhost:8000/users', {
-      firstName: "nishant",
-      email: "hello@gmail",
-      password: "demo"
+
+  // username = this.state.name;
+  // mail = this.state.email;
+  // password = this.state.password
+  submit() {
+    axios.post('http://10.0.2.2:8000/users', {
+      firstName: this.state.name,
+      email: this.state.email,
+      password: this.state.password
+    },{
+      headers:{
+        ['content-type']:'application/json'
+      }
     })
     .then(function (response) {
-      console.warn(response);
+      console.log(response);
     })
     .catch(function (error) {
-      console.warn(error);
+      console.error(error);
     });
   }
   render() {
